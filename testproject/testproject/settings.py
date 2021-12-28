@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG', default=0))
 
-ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS').split(' ')]
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 
 # Application definition
@@ -48,7 +48,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-                 BASE_DIR / "templates",
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -69,16 +68,15 @@ WSGI_APPLICATION = 'testproject.wsgi.application'
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': os.environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
-        'NAME': os.environ.get('POSTGRES_DB', BASE_DIR / 'db.sqlite3'),
-        'USER': os.environ.get('POSTGRES_USER', 'user'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
-        'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-    }
+                 'default': {
+                             'ENGINE': os.environ.get('POSTGRES_ENGINE', 'django.db.backends.sqlite3'),
+                             'NAME': os.environ.get('POSTGRES_DB', os.path.join(BASE_DIR, 'db.sqlite3')),
+                             'USER': os.environ.get('POSTGRES_USER', 'user'),
+                             'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'password'),
+                             'HOST': os.environ.get('POSTGRES_HOST', 'localhost'),
+                             'PORT': os.environ.get('POSTGRES_PORT', '5432'),
+                 }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -110,7 +108,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
